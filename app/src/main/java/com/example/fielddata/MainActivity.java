@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -92,7 +95,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     String fieldcomponent = "B_x,B_y,B_z";
     // data.append(fieldcomponent);
     public void load_data(View view) {
-        data.append("\n"+B_x+","+B_y+","+B_z+","+B_net);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        String format = simpleDateFormat.format(new Date());
+        data.append("\n"+format+B_x+","+B_y+","+B_z+","+B_net);
     }
 
     public void export_data(View view) {
