@@ -3,6 +3,7 @@
 
     package="com.example.fielddata">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -28,6 +29,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+
+        <service android:name=".JOBScheduler"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
 
     </application>
 
