@@ -20,11 +20,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,12 +40,15 @@ import java.util.List;
 
 public class MainActivity<thread> extends AppCompatActivity implements SensorEventListener {
 
-    TextView textView9, textView12, textView13, textView14;
-    Button button1, button2;
+    TextView textView9, textView12, textView13, textView14, textView15;
+    ScrollView scrollView;
+    Button button1, button2, button3;
     private static SensorManager sensorManager;
     private Sensor sensor;
     private static final String TAG = "Main Activity";
     private static final int JobID=101;
+    static String cpudisplay = new String();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,8 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
         textView12 = (TextView) findViewById(R.id.textView12);
         textView13 = (TextView) findViewById(R.id.textView13);
         textView14 = (TextView) findViewById(R.id.textView14);
+        textView15 = (TextView) findViewById(R.id.textView15);
+
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
@@ -122,23 +131,19 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
         return bValues;
     }
 
+    public void show_data(View view1){
+        button3 = (Button) findViewById((R.id.button3));
+        float[] cores = CpuInfo.getCoresUsage();
+        cpudisplay = CpuInfo.getCpuUsage(cores) + "%";
+        textView15.setText("CPU: "+cpudisplay);
+
+    }
+
+
     public void load_data(View view) {
 
         button1 = (Button) findViewById(R.id.button1);
         button1.setEnabled(false);
-
-        // Intent intent = new Intent(MainActivity.this, JOBScheduler.class);
-
-        /*
-        PersistableBundle bundle = new PersistableBundle();
-        bundle.putString("BX", B_x);
-        bundle.putString("BY", B_y);
-        bundle.putString("BZ", B_z);
-        bundle.putString("BNET",B_net);
-        */
-
-        // intent.putExtra("BUNDLE", bundle);
-        // startActivity(intent);
 
         ComponentName componentName = new ComponentName(this,JOBScheduler.class);
         JobInfo info = new JobInfo.Builder(JobID,componentName).setPersisted(true).build();
@@ -153,20 +158,10 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
             Log.d(TAG,"Job Scheduling failed");
         }
 
-        // toExit = false;
-        // t.start();
-        /*
-        String current_time_stamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Timestamp(System.currentTimeMillis()));
-        data.append(current_time_stamp+","+B_x+","+B_y+","+B_z+","+B_net+"\n");
-        */
     }
 
     public void export_data(View view) {
         try{
-
-            //dataRecorder.stop();
-            // toExit=true;
-            // t.interrupt();
 
             JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
             scheduler.cancel(JobID);
@@ -196,39 +191,5 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
             e.printStackTrace();
         }
     }
-
-    /*
-    volatile boolean toExit=false;
-    final Thread t = new Thread(new Runnable() {
-
-        @Override
-        public void run() {
-            while(!toExit){
-                try {
-
-
-                    long subtract_time = SystemClock.currentThreadTimeMillis()%20;
-                    Thread.sleep(20);
-
-
-                    Date date = Calendar.getInstance().getTime();
-                    DateFormat basic_date = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss.SSS");
-                    String strDate = basic_date.format(date);
-
-                    // format(new Timestamp(System.currentTimeMillis()));
-                    String current_time_stamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date());
-
-
-                    data.append(current_time_stamp+","+B_x+","+B_y+","+B_z+","+B_net+"\n");
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
-
-    */
-
 
 }
