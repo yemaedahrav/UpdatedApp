@@ -20,7 +20,7 @@ public class JOBScheduler extends JobService {
 
     static String B_x,B_y,B_z,B_net;
     static String data = new String();
-
+    static String cpuloadstr;
     String fieldcomponent = "TimeStamp,B_x,B_y,B_z,B_net,CPU_load";
 
 
@@ -53,12 +53,13 @@ public class JOBScheduler extends JobService {
                         B_z = bB.get(2);
                         B_net = bB.get(3);
 
-
+                        float[] cores = CpuInfo.getCoresUsage();
+                        cpuloadstr = CpuInfo.getCpuUsage(cores) + "%";
                         String current_time_stamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date());
 
-                        // Log.d(TAG,"CPU: "+ CPUdatastr);
+                        // Log.d(TAG,"CPU: "+ );
 
-                        data=data.concat(current_time_stamp + "," + B_x + "," +B_y + "," + B_z + "," + B_net + "," +"\n");
+                        data=data.concat(current_time_stamp + "," + B_x + "," +B_y + "," + B_z + "," + B_net +","+ cpuloadstr+ "," +"\n");
 //                         Log.d(TAG, "B: "+B_x+" "+B_y+" "+B_z);
 //                         Log.d(TAG, current_time_stamp);
 //                         Log.d(TAG,"DATA: "+data);

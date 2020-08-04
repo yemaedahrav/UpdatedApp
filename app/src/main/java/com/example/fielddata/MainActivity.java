@@ -47,7 +47,6 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
     private Sensor sensor;
     private static final String TAG = "Main Activity";
     private static final int JobID=101;
-    static String cpudisplay = new String();
 
 
     @Override
@@ -59,7 +58,7 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
         textView12 = (TextView) findViewById(R.id.textView12);
         textView13 = (TextView) findViewById(R.id.textView13);
         textView14 = (TextView) findViewById(R.id.textView14);
-        textView15 = (TextView) findViewById(R.id.textView15);
+        // textView15 = (TextView) findViewById(R.id.textView15);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -131,22 +130,13 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
         return bValues;
     }
 
-    public void show_data(View view1){
-        button3 = (Button) findViewById((R.id.button3));
-        float[] cores = CpuInfo.getCoresUsage();
-        cpudisplay = CpuInfo.getCpuUsage(cores) + "%";
-        textView15.setText("CPU: "+cpudisplay);
-
-    }
-
-
     public void load_data(View view) {
 
         button1 = (Button) findViewById(R.id.button1);
         button1.setEnabled(false);
 
         ComponentName componentName = new ComponentName(this,JOBScheduler.class);
-        JobInfo info = new JobInfo.Builder(JobID,componentName).setPersisted(true).build();
+        JobInfo info = new JobInfo.Builder(JobID,componentName).setPersisted(true).setRequiresCharging(false).setOverrideDeadline(10000).build();
 
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         int resultCode = scheduler.schedule(info);
