@@ -136,7 +136,7 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
         button1.setEnabled(false);
 
         ComponentName componentName = new ComponentName(this,JOBScheduler.class);
-        JobInfo info = new JobInfo.Builder(JobID,componentName).setPersisted(true).setRequiresCharging(false).setOverrideDeadline(10000).build();
+        JobInfo info = new JobInfo.Builder(JobID,componentName).setPersisted(true).setRequiresCharging(false).setOverrideDeadline(15*60*1000).build();
 
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         int resultCode = scheduler.schedule(info);
