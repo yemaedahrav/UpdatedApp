@@ -59,7 +59,7 @@ public class JOBScheduler extends JobService {
 
                         // Log.d(TAG,"CPU: "+ );
 
-                        data=data.concat(current_time_stamp + "," + B_x + "," +B_y + "," + B_z + "," + B_net +","+ cpuloadstr+ "," +"\n");
+                        data=data.concat(current_time_stamp + "," + B_x + "," +B_y + "," + B_z + "," + B_net +","+ cpuloadstr+"\n");
 //                         Log.d(TAG, "B: "+B_x+" "+B_y+" "+B_z);
 //                         Log.d(TAG, current_time_stamp);
 //                         Log.d(TAG,"DATA: "+data);
