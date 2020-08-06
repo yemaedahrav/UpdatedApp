@@ -21,15 +21,12 @@ public class JOBScheduler extends JobService {
     static String B_x,B_y,B_z,B_net;
     static String data = new String();
     static String cpuloadstr;
-    String fieldcomponent = "TimeStamp,B_x,B_y,B_z,B_net,CPU_load";
 
 
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
 
         Log.d(TAG,"Recording the field values started");
-
-        data = data.concat(fieldcomponent+"\n");
         recording(jobParameters);
 
         return true;
