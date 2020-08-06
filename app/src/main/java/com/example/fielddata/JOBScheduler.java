@@ -54,7 +54,7 @@ public class JOBScheduler extends JobService {
                         B_net = bB.get(3);
 
                         float[] cores = CpuInfo.getCoresUsage();
-                        cpuloadstr = CpuInfo.getCpuUsage(cores) + "%";
+                        cpuloadstr = String.valueOf(CpuInfo.getCpuUsage(cores));
                         String current_time_stamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(new Date());
 
                         // Log.d(TAG,"CPU: "+ );
