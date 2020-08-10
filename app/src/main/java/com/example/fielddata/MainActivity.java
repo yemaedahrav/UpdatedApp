@@ -161,7 +161,7 @@ public class MainActivity<thread> extends AppCompatActivity implements SensorEve
             button1.setEnabled(true);
 
             String datafinal=JOBScheduler.getData();
-            String fieldcomponent = "TimeStamp,B_x,B_y,B_z,B_net,CPU_load";
+            String fieldcomponent = "TimeStamp,B_x,B_y,B_z,B_net,CPU_load\n";
             datafinal=fieldcomponent+datafinal;
             Log.d(TAG,"FINAL DATA: "+datafinal);
 
